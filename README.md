@@ -32,10 +32,10 @@ Profit!
 	File structure will be:
 	```
 	- adminer.php
-	- plugins
-	    - plugin.php
-		- adminer-tables_fuzzy_search.php
-		- ... (other plugins you've already installed)
+	- plugins/
+	  - plugin.php
+	  - AdminerTsvToSql.php
+	  - ... (other plugins you've already installed)
 	```
 
 5. Edit or create `index.php` file next to `adminer.php` and [configure plugins](http://www.adminer.org/plugins/#use) and add `new AdminerTsvToSql()` to $plugins array :
@@ -69,7 +69,7 @@ Final file structure will be:
 ```
 - adminer.php
 - index.php
-- plugins
+- plugins/
 	- plugin.php
 	- AdminerTsvToSql.php
 	- ...
