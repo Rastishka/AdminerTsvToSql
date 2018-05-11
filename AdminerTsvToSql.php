@@ -8,7 +8,7 @@ class AdminerTsvToSql
             return;
         }
         ?>
-        <script type="text/javascript">
+        <script type="text/javascript" nonce="<?= get_nonce() ?>">
             document.addEventListener("DOMContentLoaded", function (event) {
                 var sqlarea = document.getElementsByClassName("sqlarea")[0];
 
@@ -22,15 +22,14 @@ class AdminerTsvToSql
                     var tabCount = (pastedText.match(/\t/g) || []).length;
 
                     if ((lineCount >= 1) &&
-                        (tabCount >= 2))
-                    {
+                        (tabCount >= 2)) {
                         var lines = pastedText.split("\r\n");
 
                         // check if valid
                         var headerColumnsLength = lines[0].split("\t").length;
                         for (var i = 1; i < lines.length; i++) {
-                            if (lines[i] != '') {
-                                if (headerColumnsLength != lines[i].split("\t").length) {
+                            if (lines[i] !== '') {
+                                if (headerColumnsLength !== lines[i].split("\t").length) {
                                     return;
                                 }
                             }
@@ -39,18 +38,17 @@ class AdminerTsvToSql
                         if (confirm('Convert clipboard TSV to SQL query?')) {
                             var sqlData = [];
 
-                            for (var i = 1; i < lines.length; i++) {
-                                if (lines[i] != '') {
+                            for (var j = 1; j < lines.length; j++) {
+                                if (lines[j] !== '') {
                                     sqlData.push(
                                         "('" +
-                                        lines[i]
+                                        lines[j]
                                             .split("\t")
                                             .map(
                                                 function (s) {
                                                     if ((s.length >= 2) &&
-                                                        (s.charAt(0) == '"') &&
-                                                        (s.charAt(s.length - 1) == '"'))
-                                                    {
+                                                        (s.charAt(0) === '"') &&
+                                                        (s.charAt(s.length - 1) === '"')) {
                                                         s = s.substring(1, s.length - 1);
                                                     }
 
@@ -72,8 +70,8 @@ class AdminerTsvToSql
                                                             case "'":
                                                             case "\\":
                                                             case "%":
-                                                                return "\\"+char; // prepends a backslash to backslash, percent,
-                                                                                  // and double/single quotes
+                                                                return "\\" + char; // prepends a backslash to backslash, percent,
+                                                                                    // and double/single quotes
                                                         }
                                                     });
                                                 }
@@ -115,5 +113,4 @@ class AdminerTsvToSql
         </script>
         <?php
     }
-
 }
